@@ -1,0 +1,4 @@
+appdata/traefik2/acme/*.json
+.DS_Store
+.env
+appdata/traefik2/rules/app-*.yml

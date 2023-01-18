@@ -1,0 +1,22 @@
+---
+version: "3"
+
+services:
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: ${RESTART}
+    network_mode: traefik_proxy
+    ports:
+      - "80:80" # web
+      - "443:443" # websecure
+      - "8456:8456" # metrics port
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./appdata/traefik2/acme:/letsencrypt"
+      - "./appdata/traefik2/rules:/rules"
+      - "./appdata/traefik2/traefik.yaml:/etc/traefik/traefik.yaml"
+    environment:
+      - TZ
+      - PUID
+      - PGID

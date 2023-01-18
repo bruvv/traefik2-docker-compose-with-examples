@@ -1,0 +1,19 @@
+---
+http:
+  routers:
+    website:
+      service: website
+      rule: "Host(`website.com`) ||  Host(`www.website.com`)"
+      tls:
+        certResolver: lets-encrypt
+      middlewares:
+        - middlewares-secure-headers
+        - middlewares-compress
+        - redirect-www-to-non-www
+      entryPoints:
+        - websecure
+  services:
+    website:
+      loadBalancer:
+        servers:
+          - url: http://192.168.1.5:1992/
